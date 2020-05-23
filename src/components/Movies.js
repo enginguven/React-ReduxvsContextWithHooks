@@ -1,12 +1,14 @@
 import React, { useContext } from "react";
 import Movie from "./Movie";
-import MovieContext, { movieActions } from "../context/movieContext";
+import MovieContext from "../context/movieContext";
+import movieActions from "../context/movieActions";
 import { useDispatch, useSelector } from "react-redux";
+import CreateMovie from "./CreateMovie";
 
 const Movies = () => {
-  //const [movies, dispatch] = useContext(MovieContext); //for context versiyon remove comment line.
-  const dispatch = useDispatch();
-  const movies = useSelector((state) => state);
+  const [movies, dispatch] = useContext(MovieContext); //for context versiyon remove comment line.
+  //const dispatch = useDispatch();
+  //const movies = useSelector((state) => state);
   return (
     <>
       <ul>
@@ -22,11 +24,16 @@ const Movies = () => {
             }
           />
         ))}
+        <li>
+          <b>Reset </b>
+          <button onClick={() => dispatch({ type: movieActions.RESET })}>
+            Reset
+          </button>
+        </li>
       </ul>
+
       <br />
-      <button onClick={() => dispatch({ type: movieActions.RESET })}>
-        Reset
-      </button>
+      <CreateMovie dispatch={dispatch} length={movies.length} />
     </>
   );
 };

@@ -1,11 +1,6 @@
 import React from "react";
 import moviesData from "../Data/MoviesData";
-
-export const movieActions = {
-  SET_INCREMENT: "SET_INCREMENT",
-  SET_DECREMENT: "SET_DECREMENT",
-  RESET: "RESET",
-};
+import movieActions from "./movieActions";
 
 export const movieReducer = (state, action) => {
   let updMovies = state;
@@ -20,6 +15,9 @@ export const movieReducer = (state, action) => {
         item.id === action.id ? { ...item, Like: item.Like - 1 } : { ...item }
       );
       return [...updMovies];
+    case movieActions.INSERT_MOVIE:
+      console.log(action);
+      return [...state, action.movie];
     case movieActions.RESET:
       return moviesData;
     default:
